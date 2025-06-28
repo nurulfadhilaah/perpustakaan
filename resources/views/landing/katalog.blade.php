@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Katalog Buku - Perpustakaan Mandailing Natal</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
   <script>
     function toggleMenu() {
       document.getElementById('mobile-menu').classList.toggle('hidden');
@@ -17,8 +18,8 @@
   <header class="bg-green-900 text-white shadow-md">
     <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <img src="/logo-madina.png" alt="Logo Madina" class="w-10 h-10">
-        <span class="text-lg font-semibold">Perpustakaan Mandailing Natal</span>
+        <img src="{{ asset('images/logomadina2.png') }}" alt="Logo Madina" class="w-10 h-10">
+        <span class="text-lg font-semibold">Perpustakaan Daerah Mandailing Natal</span>
       </div>
       <div class="md:hidden">
         <button onclick="toggleMenu()" class="focus:outline-none">
@@ -53,22 +54,37 @@
   <!-- Hero -->
   <section class="bg-gradient-to-r from-green-800 to-green-600 text-white py-20 px-4">
     <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">Katalog Buku</h2>
-      <p class="text-lg md:text-xl">Temukan buku favoritmu dan ajukan peminjaman secara online.</p>
+      <h2 data-aos="zoom-in" data-aos-duration="1000" class="text-3xl md:text-4xl font-bold mb-4">Katalog Buku</h2>
+      <p data-aos="fade-up" data-aos-delay="200" class="text-lg md:text-xl">Temukan buku favoritmu dan ajukan peminjaman secara online.</p>
     </div>
   </section>
 
   <!-- Katalog Section -->
   <section class="py-16 px-4 bg-gray-50">
     <div class="max-w-7xl mx-auto">
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        @forelse ($books as $book)
-          <div class="bg-white shadow rounded p-4 flex flex-col">
-            <img src="{{ asset('storage/' . $book->cover_buku) }}" alt="{{ $book->judul_buku }}" class="w-full h-48 object-cover mb-4 rounded">
-            <h3 class="font-semibold text-lg text-green-800">{{ $book->judul_buku }}</h3>
-            <p class="text-sm text-gray-600 mb-1">{{ $book->penulis }}</p>
-            <p class="text-xs text-gray-500 mb-4">Kategori: {{ $book->category->nama_kategori ?? 'Umum' }}</p>
-            <a href="/login" class="mt-auto inline-block bg-yellow-400 text-green-900 px-3 py-1 text-sm rounded hover:bg-yellow-500">Ajukan Peminjaman</a>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        @forelse ($books as $index => $book)
+          <div data-aos="fade-up" data-aos-delay="{{ $index * 100 }}" 
+              class="bg-white border border-gray-200 shadow-md rounded-2xl overflow-hidden flex flex-col transition-transform hover:shadow-lg hover:-translate-y-1 duration-300">
+
+            <div class="w-full h-52 overflow-hidden">
+              <img src="{{ asset('storage/' . $book->cover_buku) }}" 
+                  alt="{{ $book->judul_buku }}" 
+                  class="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105">
+            </div>
+
+            <div class="p-4 flex flex-col flex-1">
+              <h3 class="font-semibold text-lg text-green-800 mb-1">{{ $book->judul_buku }}</h3>
+              <p class="text-sm text-gray-700">{{ $book->penulis }}</p>
+              <p class="text-xs text-gray-500 mt-1 mb-4">Kategori: {{ $book->category->nama_kategori ?? 'Umum' }}</p>
+
+              <div class="mt-auto">
+                <a href="/login" 
+                  class="inline-block w-full text-center bg-yellow-400 text-green-900 font-medium py-2 rounded-lg hover:bg-yellow-500 transition-colors duration-200 text-sm">
+                  Ajukan Peminjaman
+                </a>
+              </div>
+            </div>
           </div>
         @empty
           <p class="col-span-full text-center text-gray-500">Belum ada buku yang tersedia.</p>
@@ -78,11 +94,67 @@
   </section>
 
   <!-- Footer -->
-  <footer class="bg-green-900 text-white py-8">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <p>&copy; 2025 Perpustakaan Daerah Mandailing Natal. All rights reserved.</p>
+   <footer class="bg-green-900 text-white mt-16">
+    <div class="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+
+      <!-- Kolom Info -->
+      <div>
+        <div class="flex items-center space-x-3 mb-4">
+          <img src="{{ asset('images/logomadina2.png') }}" alt="Logo Madina" class="w-10 h-10">
+          <h4 class="text-lg font-semibold">Perpustakaan Mandailing Natal</h4>
+        </div>
+        <p class="text-gray-300 leading-relaxed">
+          Menyediakan layanan literasi dan informasi untuk masyarakat Madina melalui koleksi buku dan sistem digital yang mudah diakses.
+        </p>
+      </div>
+
+      <!-- Navigasi -->
+      <div>
+        <h4 class="text-lg font-semibold mb-3">Navigasi</h4>
+        <ul class="space-y-2 text-gray-300">
+          <li><a href="/" class="hover:text-yellow-300 transition">Beranda</a></li>
+          <li><a href="/katalog" class="hover:text-yellow-300 transition">Katalog Buku</a></li>
+          <li><a href="/tentang" class="hover:text-yellow-300 transition">Tentang Kami</a></li>
+          <li><a href="/kontak" class="hover:text-yellow-300 transition">Kontak</a></li>
+        </ul>
+      </div>
+
+      <!-- Kontak + Sosial Media -->
+      <div>
+        <h4 class="text-lg font-semibold mb-3">Kontak</h4>
+        <ul class="text-gray-300 space-y-2">
+          <li>Jl. Merdeka No. 2 Kel. Kayu Jati, Kec. Panyabungan, Mandailing Natal</li>
+          <li>Email: <a href="mailto:info@perpustakaanmadina.go.id" class="hover:underline text-yellow-300">disperpus@mail.madina.go.id</a></li>
+          <li>Telepon: (0636) 321824</li>
+        </ul>
+
+        <!-- Sosial Media -->
+        <div class="mt-4">
+          <h5 class="text-sm font-semibold mb-2">Ikuti Kami</h5>
+          <div class="flex space-x-4">
+            <a href="https://www.facebook.com/people/Disperpusip-Kab-Madina/pfbid02gL7QDb3PXJB92fsge8ycW47Vof6KmEFP5iUTVoqvpgAdjQ3Kkq8mp71MSmm6CMbCl/?rdid=h95HDdQt8VpkvYL0&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1FKGMEc7i2%2F" target="_blank" class="hover:text-yellow-400">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2v-3h2v-2.3c0-2 1.2-3.2 3-3.2.9 0 1.8.2 1.8.2v2h-1c-1 0-1.3.6-1.3 1.2V12h2.5l-.4 3h-2.1v7A10 10 0 0 0 22 12z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/disperpusipkabmadina/" target="_blank" class="hover:text-yellow-400">
+              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm4.5-2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-green-700 mt-6 py-4 text-center text-xs text-gray-400">
+      &copy; 2025 Perpustakaan Daerah Mandailing Natal. Semua hak dilindungi.
     </div>
   </footer>
+
+  <!-- AOS Script -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      once: true,
+      duration: 800
+    });
+  </script>
 
 </body>
 </html>

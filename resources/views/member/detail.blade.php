@@ -7,7 +7,7 @@
       <!-- Cover Buku -->
       <div>
         <img src="{{ asset('storage/' . $book->cover_buku) }}" alt="{{ $book->judul_buku }}"
-             class="w-full h-80 object-cover rounded-lg shadow">
+             class="w-full h-120 object-cover rounded-lg shadow">
       </div>
 
       <!-- Info Buku -->

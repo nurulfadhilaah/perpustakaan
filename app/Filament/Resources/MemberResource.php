@@ -51,8 +51,8 @@ class MemberResource extends Resource
                 Tables\Columns\TextColumn::make('no_anggota')->sortable()->label('No.Anggota'),
                 Tables\Columns\TextColumn::make('email')->sortable(),
                 Tables\Columns\TextColumn::make('no_hp')->label('No.HP'),
-                Tables\Columns\ImageColumn::make('foto')->disk('public')->circular(),
-                Tables\Columns\ImageColumn::make('ktp')->disk('public')->circular()->label('KTP'),
+                Tables\Columns\ImageColumn::make('foto')->getStateUsing(fn($record) => asset('storage/' . $record->foto))->disk('public')->circular(),
+                Tables\Columns\ImageColumn::make('ktp')->getStateUsing(fn($record) => asset('storage/' . $record->ktp))->disk('public')->circular()->label('KTP'),
                 Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Registered At')->sortable(),
 
             ])

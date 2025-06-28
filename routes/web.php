@@ -31,13 +31,16 @@ Route::get('/kontak', function () {
 })->name('kontak');
 Route::post('/kontak', [ContactController::class, 'store'])->name('kontak.store');
 
-// Tampilkan form login
-Route::get('/login', [AuthController::class, 'showLoginForm'])
-    // ->middleware('guest:member') // Cegah akses jika sudah login
-    ->name('login');
 
-// Proses login
-Route::post('/login', [AuthController::class, 'login']);
+Route::get('/login', [AuthController::class, 'showUniversalLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'universalLogin'])->name('universal.login');
+// Tampilkan form login
+// Route::get('/login', [AuthController::class, 'showLoginForm'])
+//     // ->middleware('guest:member') // Cegah akses jika sudah login
+//     ->name('login');
+
+// // Proses login
+// Route::post('/login', [AuthController::class, 'login']);
 
 // Logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

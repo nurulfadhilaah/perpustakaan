@@ -56,7 +56,7 @@ class BookResource extends Resource
                 Tables\Columns\TextColumn::make('penerbit'),
                 Tables\Columns\TextColumn::make('tahun_terbit'),
                 Tables\Columns\TextColumn::make('jumlah_eksemplar'),
-                Tables\Columns\ImageColumn::make('cover_buku')->label('Cover')->circular(),
+                Tables\Columns\ImageColumn::make('cover_buku')->getStateUsing(fn($record) => asset('storage/' . $record->cover_buku))->label('Cover')->circular(),
             ])
             ->filters([
                 //

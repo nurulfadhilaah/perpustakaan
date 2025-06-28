@@ -7,16 +7,23 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function showLoginForm()
+    public function showUniversalLoginForm()
     {
-        return view('auth.login');
+        return view('auth.universal-login');
     }
 
-    public function login(Request $request)
+    public function universalLogin(Request $request)
     {
         $credentials = $request->only('email', 'password');
+        $remember = $request->filled('remember');
 
-        if (Auth::guard('member')->attempt($credentials)) {
+        // Coba login sebagai Admin
+        if (Auth::guard('admin')->attempt($credentials, $remember)) {
+            $request->session()->regenerate();
+            return redirect()->intended('/admin');
+        }
+
+        if (Auth::guard('member')->attempt($credentials, $remember)) {
             $request->session()->regenerate();
             return redirect()->intended('/anggota/dashboard'); // arahkan ke dashboard
         }
@@ -28,10 +35,19 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::guard('member')->logout();
+        if (Auth::guard('admin')->check()) {
+            Auth::guard('admin')->logout();
+        }
+
+        if (Auth::guard('member')->check()) {
+            Auth::guard('member')->logout();
+        }
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
         return redirect('/');
     }
+
 }
 

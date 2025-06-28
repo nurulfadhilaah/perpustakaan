@@ -18,7 +18,7 @@
     <!-- Logo & Header -->
     <div class="flex items-center justify-between mb-4">
       <div class="flex items-center space-x-2">
-        <img src="/logo-madina.png" class="w-10 h-10" alt="Logo">
+        <img src="{{ asset('images/logomadina2.png') }}" class="w-10 h-10" alt="Logo">
         <div>
           <p class="text-xs uppercase text-gray-500">Kartu Anggota</p>
           <p class="text-sm font-bold text-green-800">Perpustakaan Mandailing Natal</p>
