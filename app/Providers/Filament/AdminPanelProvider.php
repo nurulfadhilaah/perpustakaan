@@ -29,8 +29,23 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->authGuard('admin')
+
+            // 🌈 Branding
+            ->brandName('Sistem Admin Perpustakaan Madina')
+            ->brandLogo(new \Illuminate\Support\HtmlString(
+                    '<div class="flex items-center gap-3">
+                        <img src="' . asset('images/logomadina2.png') . '" alt="Logo Madina" class="h-10 w-10 rounded-full shadow-md">
+                        <div class="text-left leading-tight hidden sm:block">
+                            <span class="block text-base font-semibold text-gray-900">Perpustakaan Madina</span>
+                            <span class="block text-xs text-gray-500">Sistem Administrator</span>
+                        </div>
+                    </div>'
+                ))
+            ->favicon(asset('images/madinafavicon.png')) // Pastikan file favicon sudah ada di public/images
+
+        
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Hex('#14532d'), 
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')

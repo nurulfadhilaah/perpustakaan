@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tentang - Perpustakaan Daerah Mandailing Natal</title>
+  <link rel="icon" type="image/png" href="{{ asset('images/logomadina2.png') }}">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
   <script>
