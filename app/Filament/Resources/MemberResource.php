@@ -20,7 +20,7 @@ class MemberResource extends Resource
     protected static ?string $model = Member::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
-    protected static ?string $navigationGroup = '👤Member Management';
+    protected static ?string $navigationGroup = '👤Manajemen Anggota';
 
     public static function form(Form $form): Form
     {
@@ -51,15 +51,37 @@ class MemberResource extends Resource
                 Tables\Columns\TextColumn::make('no_anggota')->sortable()->label('No.Anggota'),
                 Tables\Columns\TextColumn::make('email')->sortable(),
                 Tables\Columns\TextColumn::make('no_hp')->label('No.HP'),
-                Tables\Columns\ImageColumn::make('foto')->getStateUsing(fn($record) => asset('storage/' . $record->foto))->disk('public')->circular(),
-                Tables\Columns\ImageColumn::make('ktp')->getStateUsing(fn($record) => asset('storage/' . $record->ktp))->disk('public')->circular()->label('KTP'),
+                Tables\Columns\ImageColumn::make('foto')->getStateUsing(fn($record) => asset('storage/' . $record->foto))->disk('public')
+                ->label('Foto')
+                ->circular()
+                ->getStateUsing(fn($record) => asset('storage/' . $record->foto))
+                ->extraAttributes(['class' => 'cursor-pointer'])
+                ->action(function ($record) {
+                    \Filament\Notifications\Notification::make()
+                        ->title('Preview Foto Anggota')
+                        ->body('<div style="text-align: center;"><img src="' . asset('storage/' . $record->foto) . '" style="max-height:300px; border-radius:10px;" /></div>')
+                        ->persistent()
+                        ->success()
+                        ->send();
+                }),
+                Tables\Columns\ImageColumn::make('ktp')->getStateUsing(fn($record) => asset('storage/' . $record->ktp))->disk('public')
+                ->label('KTP / KK')
+                ->circular()
+                ->getStateUsing(fn($record) => asset('storage/' . $record->ktp))
+                ->extraAttributes(['class' => 'cursor-pointer'])
+                ->action(function ($record) {
+                    \Filament\Notifications\Notification::make()
+                        ->title('Preview KTP / KK')
+                        ->body('<div style="text-align: center;"><img src="' . asset('storage/' . $record->ktp) . '" style="max-height:300px; border-radius:10px;" /></div>')
+                        ->persistent()
+                        ->success()
+                        ->send();
+                }),
                 Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Registered At')->sortable(),
 
             ])
             ->filters([
-                Tables\Filters\Filter::make('Tanpa Nomor Anggota')
-                ->label('Belum Ada No Anggota')
-                ->query(fn (Builder $query) => $query->whereNull('no_anggota')),
+                // 
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -85,5 +107,10 @@ class MemberResource extends Resource
             'create' => Pages\CreateMember::route('/create'),
             'edit' => Pages\EditMember::route('/{record}/edit'),
         ];
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Anggota';
     }
 }

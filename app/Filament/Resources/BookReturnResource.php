@@ -18,7 +18,7 @@ class BookReturnResource extends Resource
     protected static ?string $model = BookReturn::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-up-on-square';
-    protected static ?string $navigationGroup = '📝Book Loaning & Returning';
+    protected static ?string $navigationGroup = '📝Manajemen Peminjaman dan Pengembalian';
 
     public static function form(Form $form): Form
     {
@@ -75,7 +75,14 @@ class BookReturnResource extends Resource
 
                             $record->loan->book->increment('jumlah_eksemplar');
                         }
+
+                        \Filament\Notifications\Notification::make()
+                            ->title('Status berhasil diperbarui')
+                            ->body("Status pengembalian diubah menjadi: " . ucfirst($state))
+                            ->success() // bisa diganti warning/danger
+                            ->send();
                     })
+
                 ])
             ->filters([
                 //
@@ -104,5 +111,10 @@ class BookReturnResource extends Resource
             'create' => Pages\CreateBookReturn::route('/create'),
             'edit' => Pages\EditBookReturn::route('/{record}/edit'),
         ];
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Pengembalian';
     }
 }

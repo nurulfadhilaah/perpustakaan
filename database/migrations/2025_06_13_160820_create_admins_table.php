@@ -11,8 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('members', function (Blueprint $table) {
-            $table->string('ktp')->nullable()->after('foto'); // Kolom untuk upload KTP
+        Schema::create('admins', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_admin');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->rememberToken(); // ✅ Digabung di sini
+            $table->timestamps();
         });
     }
 
@@ -21,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('members', function (Blueprint $table) {
-            $table->dropColumn('ktp');
-        });
+        Schema::dropIfExists('admins');
     }
 };

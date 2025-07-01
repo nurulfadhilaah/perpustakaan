@@ -15,7 +15,7 @@ class Report extends Page implements Forms\Contracts\HasForms
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
     protected static string $view = 'filament.pages.report';
-    protected static ?string $navigationGroup = '📊 Library Report';
+    protected static ?string $navigationGroup = '📊 Laporan';
 
     public ?string $startDate = null;
     public ?string $endDate = null;
@@ -55,4 +55,10 @@ class Report extends Page implements Forms\Contracts\HasForms
             ->whereBetween('tanggal_pengembalian', [$this->startDate, $this->endDate])
             ->get();
     }
+
+    public static function getNavigationLabel(): string
+    {
+        return 'Laporan Peminjaman & Pengembalian';
+    }
+
 }

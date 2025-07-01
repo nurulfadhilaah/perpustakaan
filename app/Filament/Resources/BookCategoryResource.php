@@ -18,7 +18,7 @@ class BookCategoryResource extends Resource
     protected static ?string $model = BookCategory::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
-    protected static ?string $navigationGroup = '📚Book Management';
+    protected static ?string $navigationGroup = '📚Manajemen Buku';
     
 
     public static function form(Form $form): Form
@@ -71,5 +71,10 @@ class BookCategoryResource extends Resource
             'create' => Pages\CreateBookCategory::route('/create'),
             'edit' => Pages\EditBookCategory::route('/{record}/edit'),
         ];
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Kategori Buku';
     }
 }

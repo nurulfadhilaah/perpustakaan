@@ -21,7 +21,7 @@ class LoanResource extends Resource
     protected static ?string $model = Loan::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-down-on-square';
-    protected static ?string $navigationGroup = '📝Book Loaning & Returning';
+    protected static ?string $navigationGroup = '📝Manajemen Peminjaman dan Pengembalian';
 
     public static function form(Form $form): Form
     {
@@ -128,5 +128,10 @@ class LoanResource extends Resource
             'create' => Pages\CreateLoan::route('/create'),
             'edit' => Pages\EditLoan::route('/{record}/edit'),
         ];
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Peminjaman';
     }
 }

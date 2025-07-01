@@ -18,7 +18,7 @@ class RackResource extends Resource
     protected static ?string $model = Rack::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
-    protected static ?string $navigationGroup = '📚Book Management';
+    protected static ?string $navigationGroup = '📚Manajemen Buku';
 
     public static function form(Form $form): Form
     {
@@ -63,5 +63,10 @@ class RackResource extends Resource
             'create' => Pages\CreateRack::route('/create'),
             'edit' => Pages\EditRack::route('/{record}/edit'),
         ];
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Rak Buku';
     }
 }

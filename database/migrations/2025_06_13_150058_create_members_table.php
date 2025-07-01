@@ -15,13 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('nama_anggota');
             $table->string('nik')->unique();
-            $table->string('no_anggota');
+            $table->string('no_anggota')->nullable(); // telah diubah jadi nullable
             $table->text('alamat');
             $table->string('no_hp')->nullable();
             $table->string('email')->unique();
             $table->date('tgl_lahir')->nullable();
             $table->string('password');
-            $table->string('foto')->nullable();
+            $table->string('foto')->nullable(); // pastikan nullable
+            $table->string('ktp')->nullable();   // kolom tambahan baru
             $table->rememberToken();
             $table->timestamps();
         });

@@ -50,7 +50,7 @@
         </div>
 
         <div>
-            <label class="block text-sm font-medium mb-1">KTP</label>
+            <label class="block text-sm font-medium mb-1">KTP/Kartu Keluarga</label>
             @if ($member->ktp)
                 <div class="mb-2">
                     <img src="{{ asset('storage/' . $member->ktp) }}" alt="KTP" class="w-24 h-24 object-cover rounded-full">

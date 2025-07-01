@@ -46,6 +46,15 @@ class MemberController extends Controller
 
             $validated['foto'] = $request->file('foto')->store('foto_member', 'public');
         }
+        
+         // Simpan KTP jika ada
+        if ($request->hasFile('ktp')) {
+            if ($member->ktp && Storage::disk('public')->exists($member->ktp)) {
+                Storage::disk('public')->delete($member->ktp);
+            }
+
+            $validated['ktp'] = $request->file('ktp')->store('ktp_member', 'public');
+        }
 
         // Ubah password jika diisi
         if ($request->filled('password')) {

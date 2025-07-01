@@ -66,7 +66,7 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1">Upload KTP</label>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Upload KTP/Kartu Keluarga</label>
           <input type="file" name="ktp" class="form-input p-1">
         </div>
 

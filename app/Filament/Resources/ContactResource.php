@@ -18,8 +18,7 @@ class ContactResource extends Resource
     protected static ?string $model = Contact::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
-    protected static ?string $navigationGroup = 'Critics and Suggestions';
-    protected static ?string $label = 'Critics and Suggestions';
+    
 
     public static function form(Form $form): Form
     {
@@ -61,5 +60,10 @@ class ContactResource extends Resource
         return [
             'index' => Pages\ListContacts::route('/'),
         ];
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Kritik dan Saran';
     }
 }

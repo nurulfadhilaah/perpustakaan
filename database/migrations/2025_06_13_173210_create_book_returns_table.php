@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('loan_id')->constrained('loans')->onDelete('cascade');
             $table->date('tanggal_pengembalian');
+            $table->enum('status', ['pending', 'diterima', 'ditolak'])->default('pending'); // ✅ Digabung di sini
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('returns');
+        Schema::dropIfExists('book_returns'); // ✅ Diperbaiki
     }
 };

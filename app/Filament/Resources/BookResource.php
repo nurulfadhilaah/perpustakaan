@@ -2,23 +2,24 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BookResource\Pages;
-use App\Filament\Resources\BookResource\RelationManagers;
-use App\Models\Book;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\Book;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\BookResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\BookResource\RelationManagers;
 
 class BookResource extends Resource
 {
     protected static ?string $model = Book::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
-    protected static ?string $navigationGroup = '📚Book Management';
+    protected static ?string $navigationGroup = '📚Manajemen Buku';
     
 
     public static function form(Form $form): Form
@@ -56,10 +57,25 @@ class BookResource extends Resource
                 Tables\Columns\TextColumn::make('penerbit'),
                 Tables\Columns\TextColumn::make('tahun_terbit'),
                 Tables\Columns\TextColumn::make('jumlah_eksemplar'),
-                Tables\Columns\ImageColumn::make('cover_buku')->getStateUsing(fn($record) => asset('storage/' . $record->cover_buku))->label('Cover')->circular(),
+                Tables\Columns\ImageColumn::make('cover_buku')->label('Cover')
+                ->circular()
+                ->getStateUsing(fn($record) => asset('storage/' . $record->cover_buku))
+                ->extraAttributes(['class' => 'cursor-pointer'])
+                ->action(function ($record) {
+                    // Menampilkan modal custom
+                    \Filament\Notifications\Notification::make()
+                        ->title('Preview Cover')
+                        ->body('<img src="' . asset('storage/' . $record->cover_buku) . '" class="w-full rounded" />')
+                        ->persistent()
+                        ->success()
+                        ->send();
+                }),
             ])
             ->filters([
-                //
+                SelectFilter::make('category_id')
+                ->label('Kategori')
+                ->relationship('category', 'nama_kategori')
+                ->searchable(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -85,5 +101,10 @@ class BookResource extends Resource
             'create' => Pages\CreateBook::route('/create'),
             'edit' => Pages\EditBook::route('/{record}/edit'),
         ];
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Buku';
     }
 }

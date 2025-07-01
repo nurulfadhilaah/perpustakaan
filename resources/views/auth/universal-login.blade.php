@@ -15,6 +15,12 @@
       <img src="{{ asset('images/logomadina2.png') }}" alt="Logo Madina" class="w-16 h-16 mx-auto mb-3">
       <h2 class="text-2xl font-bold text-green-800">Selamat Datang!</h2>
       <p class="text-sm text-gray-600">Silakan login untuk masuk ke sistem</p>
+      @if (session('success'))
+        <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 4000)" x-show="show"
+          class="mb-4 px-4 py-3 border border-green-400 text-green-700 bg-green-100 rounded text-sm">
+          {{ session('success') }}
+        </div>
+      @endif
     </div>
 
     @if (session('error'))

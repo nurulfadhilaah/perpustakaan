@@ -11,7 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Tabel sudah ada di database, jadi tidak perlu membuat ulang
+        Schema::create('books', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('category_id')->constrained('book_categories')->onDelete('cascade');
+            $table->foreignId('rack_id')->constrained('racks')->onDelete('cascade');
+            $table->string('judul_buku');
+            $table->string('pengarang');
+            $table->string('penerbit');
+            $table->year('tahun_terbit');
+            $table->integer('jumlah_eksemplar');
+            $table->text('deskripsi')->nullable(); // <--- Tambahkan ini
+            $table->string('cover_buku')->nullable(); // <--- Dan ini
+            $table->timestamps(); // disarankan untuk tracking created_at & updated_at
+        });
     }
 
     /**
