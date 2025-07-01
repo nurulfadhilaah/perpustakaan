@@ -65,7 +65,7 @@
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
       <!-- Form -->
       <div class="bg-white p-6 rounded shadow" data-aos="fade-right">
-        <h3 class="text-xl font-semibold mb-4 text-green-900">Formulir Kontak</h3>
+        <h3 class="text-xl font-semibold mb-4 text-green-900">Kirim Pesan Kritik dan Saran</h3>
         <form action="{{ route('kontak.store') }}" method="POST" class="space-y-4">
         @csrf
           <div>
