@@ -33,10 +33,13 @@ class MemberResource extends Resource
                 Forms\Components\TextInput::make('no_hp')->label('No.HP'),
                 Forms\Components\TextInput::make('email')->email()->required(),
                 Forms\Components\DatePicker::make('tgl_lahir')->label('Tanggal Lahir'),
-                // Forms\Components\TextInput::make('password')
-                //     ->password()
-                //     ->dehydrateStateUsing(fn ($state) => Hash::make($state))
-                //     ->required()->dehydrated(fn ($state) => filled($state)),
+                Forms\Components\TextInput::make('password')
+                ->password()
+                ->label('Password')
+                ->required(fn (string $context) => $context === 'create') // wajib saat create
+                ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                ->dehydrated(fn ($state) => filled($state))
+                ->visibleOn('create'), // hanya tampil di create form
                 Forms\Components\FileUpload::make('foto')->image()->disk('public')->directory('foto_member')->visibility('public')->imagePreviewHeight('100'),
                  Forms\Components\FileUpload::make('ktp')->image()->disk('public')->directory('ktp_member')->visibility('public')->imagePreviewHeight('100'),
             ]);
