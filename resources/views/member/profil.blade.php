@@ -31,8 +31,8 @@
         </div>
 
         <!-- Foto -->
-        <div class="flex justify-center md:justify-end">
-          <img src="{{ asset('storage/' . $member->foto) }}" alt="Foto Profil" class="w-40 h-40 rounded shadow object-cover">
+        <div class="w-full max-w-xs mx-auto overflow-hidden bg-gray-100 aspect-[3/4]">
+          <img src="{{ asset('storage/' . $member->foto) }}" alt="Foto Profil" class="rounded shadow object-cover w-full h-full">
         </div>
       </div>
     </div>

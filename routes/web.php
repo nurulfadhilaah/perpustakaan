@@ -31,20 +31,14 @@ Route::get('/kontak', function () {
 })->name('kontak');
 Route::post('/kontak', [ContactController::class, 'store'])->name('kontak.store');
 
-
+//login
 Route::get('/login', [AuthController::class, 'showUniversalLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'universalLogin'])->name('universal.login');
-// Tampilkan form login
-// Route::get('/login', [AuthController::class, 'showLoginForm'])
-//     // ->middleware('guest:member') // Cegah akses jika sudah login
-//     ->name('login');
-
-// // Proses login
-// Route::post('/login', [AuthController::class, 'login']);
 
 // Logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+//register
 Route::get('/register', [MemberAuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [MemberAuthController::class, 'register']);
 
@@ -64,7 +58,7 @@ Route::middleware('auth:member')->prefix('anggota')->name('member.')->group(func
     Route::get('/dashboard', fn() => view('member.dashboard'))->name('dashboard');
     Route::get('/profil', [MemberController::class, 'profil'])->name('profil');
     Route::get('/profil/edit', [MemberController::class, 'edit'])->name('profil.edit');
-    Route::put('/profil/update', [MemberController::class, 'update'])->name('profil.update'); // ⬅️ ini yang kurang
+    Route::put('/profil/update', [MemberController::class, 'update'])->name('profil.update'); 
     Route::get('/kartu', [MemberController::class, 'cetakKartu'])->name('kartu');
     Route::get('/katalog', fn() => view('member.katalog'))->name('katalog');
     Route::get('/riwayat', fn() => view('member.riwayat'))->name('riwayat');
@@ -88,12 +82,14 @@ Route::post('/anggota/logout', [\App\Http\Controllers\AuthController::class, 'lo
     ->middleware('auth:member')
     ->name('member.logout');
 
+
+//Cetak Kartu
 Route::get('/anggota/cetak-kartu', function () {
     $member = Auth::guard('member')->user();
     return view('member.kartu', compact('member'));
 })->middleware('auth:member')->name('member.cetak_kartu');
 
-
+//book
 Route::middleware('auth:member')->prefix('anggota')->group(function () {
     Route::get('/katalog', [BookController::class, 'index'])->name('member.katalog');
     Route::get('/buku/{id}', [BookController::class, 'show'])->name('member.buku.detail');
@@ -108,10 +104,11 @@ Route::middleware('auth:member')->prefix('anggota')->group(function () {
     Route::get('/cetak-kartu', [MemberController::class, 'cetakKartu'])->name('member.cetak_kartu');
 });
 
-
+//katalog
 Route::get('/anggota/katalog', [MemberKatalogController::class, 'index'])->name('member.katalog');
-Route::get('/anggota/buku/{id}', [MemberKatalogController::class, 'detail'])->name('member.buku.detail');
 
+//detail buku
+Route::get('/anggota/buku/{id}', [MemberKatalogController::class, 'detail'])->name('member.buku.detail');
 Route::get('/anggota/buku/{id}', [KatalogController::class, 'detail'])->name('member.buku.detail');
 
 Route::middleware(['auth:member'])->group(function () {
@@ -119,7 +116,7 @@ Route::middleware(['auth:member'])->group(function () {
         ->name('member.peminjaman.ajukan');
 });
 
-
+//report
 Route::get('/admin/report/download/pdf', [ReportExportController::class, 'exportPdf'])->name('report.download.pdf');
 
 

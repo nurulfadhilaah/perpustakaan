@@ -7,17 +7,17 @@
 
     @if($startDate && $endDate)
         <div class="mt-6">
-            <h2 class="text-xl font-bold">Laporan Peminjaman</h2>
-            <table class="table-auto w-full mt-4 border">
-                <thead class="bg-gray-200">
-                    <tr>
-                        <th class="border px-4 py-2">Nama Anggota</th>
-                        <th class="border px-4 py-2">Judul Buku</th>
-                        <th class="border px-4 py-2">Tanggal Pinjam</th>
-                        <th class="border px-4 py-2">Tanggal Kembali</th>
-                        <th class="border px-4 py-2">Status</th>
-                    </tr>
-                </thead>
+            <h2 class="text-xl font-bold mb-4">Laporan Peminjaman</h2>
+        <table class="table-auto w-full border mb-12">
+            <thead style="background-color: #15803d; color: white;">
+                <tr>
+                    <th class="border px-4 py-2">Nama Anggota</th>
+                    <th class="border px-4 py-2">Judul Buku</th>
+                    <th class="border px-4 py-2">Tanggal Pinjam</th>
+                    <th class="border px-4 py-2">Tanggal Kembali</th>
+                    <th class="border px-4 py-2">Status</th>
+                </tr>
+            </thead>
                 <tbody>
                     @foreach($this->getLoanData() as $loan)
                         <tr>
@@ -31,9 +31,9 @@
                 </tbody>
             </table>
 
-            <h2 class="text-xl font-bold mt-10">Laporan Pengembalian</h2>
-            <table class="table-auto w-full mt-4 border">
-                <thead class="bg-gray-200">
+            <table class="table-auto w-full border">
+            <h2 class="text-xl font-bold mt-16 mb-4">Laporan Pengembalian</h2>
+                <thead style="background-color: #15803d; color: white;">
                     <tr>
                         <th class="border px-4 py-2">Nama Anggota</th>
                         <th class="border px-4 py-2">Judul Buku</th>

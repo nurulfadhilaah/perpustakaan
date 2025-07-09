@@ -34,7 +34,7 @@ class MemberController extends Controller
             'no_hp'        => 'nullable|string|max:15',
             'alamat'       => 'nullable|string',
             'foto'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'password'     => 'nullable|string|min:6|confirmed',
+            'password'     => 'nullable|string|min:8|confirmed',
         ]);
 
         // Simpan foto jika ada
@@ -69,12 +69,11 @@ class MemberController extends Controller
         return redirect()->route('member.profil')->with('success', 'Profil berhasil diperbarui.');
     }
 
-    // Cetak kartu anggota (contoh bisa jadi PDF)
+    // Cetak kartu anggota 
     public function cetakKartu()
     {
         $member = Auth::guard('member')->user();
 
-        // Sementara tampilkan view biasa, bisa diganti jadi PDF dengan dompdf
         return view('member.kartu', compact('member'));
     }
 }

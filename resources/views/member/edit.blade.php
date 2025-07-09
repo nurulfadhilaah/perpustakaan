@@ -59,6 +59,7 @@
             <input type="file" name="ktp" class="block w-full text-sm text-gray-700 border border-gray-300 rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-600">
         </div>
 
+        
         <div>
             <label class="block text-sm font-medium mb-1">Password Baru <span class="text-gray-500 text-sm">(opsional)</span></label>
             <input type="password" name="password" class="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-600">
@@ -67,7 +68,37 @@
         <div>
             <label class="block text-sm font-medium mb-1">Konfirmasi Password</label>
             <input type="password" name="password_confirmation" class="w-full border px-4 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-600">
+
+            @error('password_confirmation')
+                <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
+
+        {{--  script validasi real-time di sini --}}
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const password = document.querySelector('input[name="password"]');
+                const confirmPassword = document.querySelector('input[name="password_confirmation"]');
+
+                const errorMsg = document.createElement('p');
+                errorMsg.classList.add('text-red-600', 'text-sm', 'mt-1');
+                errorMsg.style.display = 'none';
+                confirmPassword.insertAdjacentElement('afterend', errorMsg);
+
+                function validatePasswordMatch() {
+                    if (password.value && confirmPassword.value && password.value !== confirmPassword.value) {
+                        errorMsg.textContent = 'Konfirmasi password tidak cocok.';
+                        errorMsg.style.display = 'block';
+                    } else {
+                        errorMsg.textContent = '';
+                        errorMsg.style.display = 'none';
+                    }
+                }
+
+                password.addEventListener('input', validatePasswordMatch);
+                confirmPassword.addEventListener('input', validatePasswordMatch);
+            });
+        </script>
 
         <div class="text-right">
             <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded hover:bg-green-800">Simpan Perubahan</button>
