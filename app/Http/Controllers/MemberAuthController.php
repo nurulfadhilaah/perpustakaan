@@ -24,8 +24,8 @@ class MemberAuthController extends Controller
             'email'        => 'required|email|unique:members',
             'tgl_lahir'    => 'required|date',
             'password'     => 'required|string|min:6|confirmed',
-            'foto'         => 'nullable|image|max:2048', // tambahkan validasi
-            'ktp'          => 'nullable|image|max:2048',
+            'foto'         => 'nullable|image|max:20480', // tambahkan validasi
+            'ktp'          => 'nullable|image|max:20480',
         ]);
 
         $validated['password'] = Hash::make($validated['password']);
