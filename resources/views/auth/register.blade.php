@@ -137,6 +137,9 @@
                   <input type="file" id="foto" name="foto" accept="image/*"
                     class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none focus:ring-2 focus:ring-green-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-100 file:text-green-800 hover:file:bg-green-200 transition duration-200"
                     required>
+                    @error('foto')
+                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <!-- Upload KTP/Kartu Keluarga -->
@@ -145,6 +148,9 @@
                   <input type="file" id="ktp" name="ktp" accept="image/*"
                     class="block w-full text-sm text-gray-700 border border-gray-300 rounded-lg cursor-pointer bg-white focus:outline-none focus:ring-2 focus:ring-green-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-100 file:text-green-800 hover:file:bg-green-200 transition duration-200"
                     required>
+                    @error('ktp')
+                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                    @enderror   
                 </div>
                 <div>
                     <label for="password" class="block text-base font-medium text-gray-700 mb-2">Password</label>
