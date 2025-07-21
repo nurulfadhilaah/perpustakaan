@@ -52,13 +52,14 @@
                     @endforeach
                 </tbody>
             </table>
-        <x-filament::button
-            tag="a"
-            href="{{ route('report.download.pdf', ['startDate' => $startDate, 'endDate' => $endDate]) }}"
-            target="_blank"
-            color="primary">
-            Cetak PDF
-        </x-filament::button>
+            <x-filament::button
+                tag="a"
+                href="{{ route('book-copies.export', ['startDate' => $startDate, 'endDate' => $endDate]) }}"
+                target="_blank"
+                color="primary">
+                Cetak PDF
+            </x-filament::button>
+
         </div>
     @endif
 </x-filament::page>

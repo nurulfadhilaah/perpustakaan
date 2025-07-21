@@ -165,6 +165,34 @@
                         class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
                         placeholder="Ulangi password" required>
                 </div>
+
+                <!-- Di dalam form register.blade.php -->
+                <!-- Pertanyaan Keamanan -->
+                <div>
+                    <label for="pertanyaan_keamanan" class="block text-base font-medium text-gray-700 mb-2">Pertanyaan Keamanan</label>
+                    <select name="pertanyaan_keamanan" id="pertanyaan_keamanan" required
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200">
+                        <option value="">-- Pilih Pertanyaan --</option>
+                        <option value="Nama hewan peliharaan pertama?" {{ old('pertanyaan_keamanan') == 'Nama hewan peliharaan pertama?' ? 'selected' : '' }}>Nama hewan peliharaan pertama?</option>
+                        <option value="Nama sekolah dasar?" {{ old('pertanyaan_keamanan') == 'Nama sekolah dasar?' ? 'selected' : '' }}>Nama sekolah dasar?</option>
+                        <option value="Makanan favorit?" {{ old('pertanyaan_keamanan') == 'Makanan favorit?' ? 'selected' : '' }}>Makanan favorit?</option>
+                    </select>
+                    @error('pertanyaan_keamanan')
+                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Jawaban Keamanan -->
+                <div>
+                    <label for="jawaban_keamanan" class="block text-base font-medium text-gray-700 mb-2">Jawaban Keamanan</label>
+                    <input type="text" name="jawaban_keamanan" id="jawaban_keamanan" value="{{ old('jawaban_keamanan') }}"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
+                        placeholder="Jawaban dari pertanyaan di atas" required>
+                    @error('jawaban_keamanan')
+                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
             </div>
 
             <button type="submit"

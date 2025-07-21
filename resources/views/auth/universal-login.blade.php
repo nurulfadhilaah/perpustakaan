@@ -100,7 +100,10 @@
                     <input type="checkbox" name="remember" class="rounded text-green-600 focus:ring-green-500">
                     <span>Ingat saya</span>
                 </label>
-        
+
+                 <a href="{{ route('forgot.form') }}" class="text-green-700 hover:text-green-900 font-medium transition">
+                    Lupa Password?
+                </a>
             </div>
 
             <button type="submit"

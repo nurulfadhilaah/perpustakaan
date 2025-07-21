@@ -13,7 +13,7 @@ class Book extends Model
         'pengarang',
         'penerbit',
         'tahun_terbit',
-        'jumlah_eksemplar',
+        // 'jumlah_eksemplar',
         'deskripsi',
         'cover_buku',
     ];
@@ -27,5 +27,36 @@ class Book extends Model
     {
         return $this->belongsTo(Rack::class);
     }
+
+    public function copies()
+    {
+        return $this->hasMany(BookCopy::class);
+    }
+
+        // Jumlah seluruh eksemplar (book_copies)
+    public function jumlahEksemplar()
+    {
+        return $this->copies()->count();
+    }
+
+    // Jumlah eksemplar yang tersedia
+    public function tersedia()
+    {
+        return $this->copies()->where('status', 'tersedia')->count();
+    }
+
+    // Jumlah eksemplar yang sedang dipinjam
+    public function dipinjam()
+    {
+        return $this->copies()->where('status', 'dipinjam')->count();
+    }
+
+    // Jumlah eksemplar yang telah dikembalikan
+    public function dikembalikan()
+    {
+        return $this->copies()->where('status', 'dikembalikan')->count();
+    }
+
+
 
 }

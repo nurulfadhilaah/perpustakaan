@@ -89,11 +89,33 @@ class LoanResource extends Resource
                     ->visible(fn ($record) => $record->status === 'pending')
                     ->requiresConfirmation()
                     ->action(function ($record) {
-                        $record->update(['status' => 'dipinjam',
-                        'admin_id' =>Auth::guard('admin')->user()->id// pastikan admin sedang login
+                        // Ambil eksemplar yang tersedia untuk buku ini
+                        $copies = $record->book->copies()->where('status', 'tersedia')->limit(1)->get(); // ambil 1 eksemplar
+                        
+                        if ($copies->count() < 1) {
+                            \Filament\Notifications\Notification::make()
+                                ->title('Eksemplar Tidak Tersedia')
+                                ->body('Tidak ada eksemplar buku yang tersedia.')
+                                ->danger()
+                                ->send();
+                            return;
+                        }
+
+                        // Tandai eksemplar sebagai dipinjam
+                        foreach ($copies as $copy) {
+                            $copy->update([
+                                'status' => 'dipinjam',
+                                'loan_id' => $record->id,
+                            ]);
+                        }
+
+                        // Update status peminjaman
+                        $record->update([
+                            'status' => 'dipinjam',
+                            'admin_id' => Auth::guard('admin')->user()->id
                         ]);
-                        $record->book->decrement('jumlah_eksemplar');
                     }),
+
 
                 Tables\Actions\Action::make('tolak')
                     ->label('Tolak')

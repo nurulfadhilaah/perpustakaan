@@ -63,26 +63,31 @@ class BookReturnResource extends Resource
                         'diterima' => 'Diterima',
                         'ditolak' => 'Ditolak',
                     ])
-                    ->afterStateUpdated(function ($record, $state) {
+                   ->afterStateUpdated(function ($record, $state) {
                         if ($state === 'diterima') {
-                            $record->load('loan.book'); // pastikan relasi dimuat
+                            $record->load('loan.copy'); // pastikan relasi loan->copy dimuat
 
+                            // Update status peminjaman
                             $record->loan->update([
                                 'status' => now()->greaterThan($record->loan->tanggal_kembali)
                                     ? 'terlambat'
                                     : 'dikembalikan',
                             ]);
 
-                            $record->loan->book->increment('jumlah_eksemplar');
+                            // Ubah status eksemplar menjadi "dikembalikan"
+                            if ($record->loan->copy) {
+                                $record->loan->copy->update([
+                                    'status' => 'tersedia',
+                                ]);
+                            }
                         }
 
                         \Filament\Notifications\Notification::make()
                             ->title('Status berhasil diperbarui')
                             ->body("Status pengembalian diubah menjadi: " . ucfirst($state))
-                            ->success() // bisa diganti warning/danger
+                            ->success()
                             ->send();
                     })
-
                 ])
             ->filters([
                 //

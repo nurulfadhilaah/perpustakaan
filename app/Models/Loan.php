@@ -41,4 +41,9 @@ class Loan extends Model
         return $this->hasOne(BookReturn::class);
     }
 
+    public function copy()
+    {
+        return $this->hasOne(BookCopy::class);
+    }
+
 }

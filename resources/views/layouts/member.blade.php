@@ -74,7 +74,7 @@
                 <a href="{{ route('member.profil') }}" class="hover:text-yellow-300 transition duration-300 ease-in-out transform hover:scale-105">Profil</a>
                 <a href="{{ route('member.katalog') }}" class="hover:text-yellow-300 transition duration-300 ease-in-out transform hover:scale-105">Katalog Buku</a>
                 <a href="{{ route('member.riwayat') }}" class="hover:text-yellow-300 transition duration-300 ease-in-out transform hover:scale-105">Riwayat</a>
-                <form action="{{ route('logout') }}" method="POST" class="inline">
+                <form action="{{ route('member.logout') }}" method="POST" class="inline">
                     @csrf
                     <button type="submit" class="bg-yellow-400 text-green-900 px-5 py-2 rounded-full shadow-md hover:bg-yellow-500 transition duration-300 ease-in-out transform hover:scale-105">Logout</button>
                 </form>
@@ -88,7 +88,7 @@
                 <a href="{{ route('member.profil') }}" class="block py-2 px-3 rounded-md text-white hover:bg-green-700 transition duration-200">Profil</a>
                 <a href="{{ route('member.katalog') }}" class="block py-2 px-3 rounded-md text-white hover:bg-green-700 transition duration-200">Katalog Buku</a>
                 <a href="{{ route('member.riwayat') }}" class="block py-2 px-3 rounded-md text-white hover:bg-green-700 transition duration-200">Riwayat</a>
-                <form action="{{ route('logout') }}" method="POST" class="mt-4">
+                <form action="{{ route('member.logout') }}" method="POST" class="mt-4">
                     @csrf
                     <button type="submit" class="w-full text-center bg-yellow-400 text-green-900 px-4 py-2 rounded-full hover:bg-yellow-500 transition duration-200">Logout</button>
                 </form>

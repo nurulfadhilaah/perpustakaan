@@ -26,9 +26,13 @@ class MemberAuthController extends Controller
             'password'     => 'required|string|min:6|confirmed',
             'foto'         => 'nullable|image|max:20480', // tambahkan validasi
             'ktp'          => 'nullable|image|max:20480',
+            'pertanyaan_keamanan' => 'required|string|max:255',
+            'jawaban_keamanan' => 'required|string|max:255',
         ]);
+        
 
         $validated['password'] = Hash::make($validated['password']);
+        $validated['jawaban_keamanan'] = strtolower($validated['jawaban_keamanan']);
         
         if ($request->hasFile('foto')) {
             $fotoPath = $request->file('foto')->store('foto_member', 'public');
@@ -45,4 +49,5 @@ class MemberAuthController extends Controller
 
         return redirect('/login')->with('success', 'Pendaftaran berhasil. Silakan login.');
     }
+
 }

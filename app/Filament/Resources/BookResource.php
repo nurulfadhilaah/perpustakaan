@@ -40,7 +40,7 @@ class BookResource extends Resource
             Forms\Components\TextInput::make('pengarang'),
             Forms\Components\TextInput::make('penerbit'),
             Forms\Components\TextInput::make('tahun_terbit'),
-            Forms\Components\TextInput::make('jumlah_eksemplar')->numeric()->default(1),
+            // Forms\Components\TextInput::make('jumlah_eksemplar')->numeric()->default(1),
             Forms\Components\Textarea::make('deskripsi'),
             Forms\Components\FileUpload::make('cover_buku')->image()->directory('cover_buku')->visibility('public')->imagePreviewHeight('100'),
             ]);
@@ -56,7 +56,7 @@ class BookResource extends Resource
                 Tables\Columns\TextColumn::make('pengarang'),
                 Tables\Columns\TextColumn::make('penerbit'),
                 Tables\Columns\TextColumn::make('tahun_terbit'),
-                Tables\Columns\TextColumn::make('jumlah_eksemplar'),
+                // Tables\Columns\TextColumn::make('jumlah_eksemplar'),
                 Tables\Columns\ImageColumn::make('cover_buku')->label('Cover')
                 ->circular()
                 ->getStateUsing(fn($record) => asset('storage/' . $record->cover_buku))

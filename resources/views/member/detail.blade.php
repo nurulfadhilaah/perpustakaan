@@ -21,7 +21,11 @@
                     <p><strong>Pengarang:</strong> <span class="font-medium">{{ $book->pengarang }}</span></p>
                     <p><strong>Penerbit:</strong> <span class="font-medium">{{ $book->penerbit }}</span></p>
                     <p><strong>Tahun Terbit:</strong> <span class="font-medium">{{ $book->tahun_terbit }}</span></p>
-                    <p><strong>Jumlah Tersedia:</strong> <span class="font-medium text-green-700">{{ $book->jumlah_eksemplar }}</span></p>
+                    <p><strong>Jumlah Tersedia:</strong>
+                        <span class="font-medium text-green-700">
+                            {{ $book->copies()->where('status','tersedia')->count() }}
+                        </span>
+                    </p>
                 </div>
 
                 <div>

@@ -22,6 +22,8 @@ class Member extends Authenticatable
         'password',
         'foto',
         'ktp',
+        'pertanyaan_keamanan', // ✅ ini wajib ada
+        'jawaban_keamanan',   
     ];
 
     protected $hidden = [
