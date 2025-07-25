@@ -36,14 +36,19 @@ class Loan extends Model
         return $this->belongsTo(Admin::class);
     }
 
-    public function return()
+    public function bookReturn()
     {
         return $this->hasOne(BookReturn::class);
     }
 
-    public function copy()
+    public function copies()
     {
-        return $this->hasOne(BookCopy::class);
+        return $this->hasMany(BookCopy::class);
+    }
+
+    public function return()
+    {
+        return $this->hasOne(\App\Models\BookReturn::class);
     }
 
 }

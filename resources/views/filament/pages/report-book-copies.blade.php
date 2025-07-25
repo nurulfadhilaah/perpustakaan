@@ -15,19 +15,20 @@
                         <th class="border px-2 py-1">Total</th>
                         <th class="border px-2 py-1">Tersedia</th>
                         <th class="border px-2 py-1">Dipinjam</th>
-                        <th class="border px-2 py-1">Dikembalikan</th>
+                        <th class="border px-2 py-1">Total Seluruh Pengembalian</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($this->getFilteredBooks() as $book)
-                        <tr>
-                            <td class="border px-2 py-1">{{ $book->judul_buku }}</td>
-                            <td class="border px-2 py-1">{{ $book->total }}</td>
-                            <td class="border px-2 py-1">{{ $book->tersedia_count }}</td>
-                            <td class="border px-2 py-1">{{ $book->dipinjam_count }}</td>
-                            <td class="border px-2 py-1">{{ $book->dikembalikan_count }}</td>
-                        </tr>
-                    @endforeach
+                    <tr>
+                        <td class="border px-2 py-1">{{ $book->book->judul_buku }}</td>
+                        <td class="border px-2 py-1">{{ $book->total }}</td>
+                        <td class="border px-2 py-1">{{ $book->tersedia }}</td>
+                        <td class="border px-2 py-1">{{ $book->dipinjam }}</td>
+                        <td class="border px-2 py-1">{{ $book->dikembalikan }}</td>
+                    </tr>
+                @endforeach
+
                 </tbody>
             </table>
 

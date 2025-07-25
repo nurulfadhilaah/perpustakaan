@@ -7,6 +7,8 @@ use Filament\Forms;
 use Filament\Pages\Page;
 use Filament\Forms\Form;
 use Illuminate\Support\Collection;
+use App\Models\BookReturn;
+
 
 class ReportBookCopies extends Page
 {
@@ -28,15 +30,34 @@ class ReportBookCopies extends Page
 
     public function getFilteredBooks(): Collection
     {
-        if (!$this->startDate || !$this->endDate) {
-            return collect();
-        }
+        $books = Book::with('copies.loan.return')->get();
 
-        return Book::withCount([
-            'copies as total' => fn ($q) => $q->whereBetween('created_at', [$this->startDate, $this->endDate]),
-            'copies as tersedia_count' => fn ($q) => $q->where('status', 'tersedia')->whereBetween('created_at', [$this->startDate, $this->endDate]),
-            'copies as dipinjam_count' => fn ($q) => $q->where('status', 'dipinjam')->whereBetween('created_at', [$this->startDate, $this->endDate]),
-            'copies as dikembalikan_count' => fn ($q) => $q->where('status', 'dikembalikan')->whereBetween('created_at', [$this->startDate, $this->endDate]),
-        ])->get();
+        return $books->map(function ($book) {
+            $copies = $book->copies;
+
+            $total = $copies->whereBetween('updated_at', [$this->startDate, $this->endDate])->count();
+
+            $tersedia = $copies->where('status', 'tersedia')
+                ->whereBetween('updated_at', [$this->startDate, $this->endDate])->count();
+
+            $dipinjam = $copies->where('status', 'dipinjam')
+                ->whereBetween('updated_at', [$this->startDate, $this->endDate])->count();
+
+            // Hitung dikembalikan berdasarkan data BookReturn
+            $dikembalikan = BookReturn::whereHas('loan', function ($query) use ($book) {
+                $query->where('book_id', $book->id);
+            })
+            ->whereBetween('tanggal_pengembalian', [$this->startDate, $this->endDate])
+            ->count();
+
+            return (object)[
+                'book' => $book,
+                'total' => $total,
+                'tersedia' => $tersedia,
+                'dipinjam' => $dipinjam,
+                'dikembalikan' => $dikembalikan,
+            ];
+        });
     }
+
 }

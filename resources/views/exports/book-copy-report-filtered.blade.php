@@ -22,7 +22,7 @@
                 <th>Total</th>
                 <th>Tersedia</th>
                 <th>Dipinjam</th>
-                <th>Dikembalikan</th>
+                <th>Total Seluruh Pengembalian</th>
             </tr>
         </thead>
         <tbody>

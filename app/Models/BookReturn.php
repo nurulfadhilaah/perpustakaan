@@ -16,6 +16,11 @@ class BookReturn extends Model
         'tanggal_pengembalian' => 'datetime',
         ];
 
+    public function bookCopy()
+    {
+        return $this->belongsTo(BookCopy::class);
+    }
+
     public function loan()
     {
         return $this->belongsTo(Loan::class);

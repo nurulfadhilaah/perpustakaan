@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class BookCopy extends Model
 {
     protected $fillable = ['book_id', 'loan_id', 'status'];
+    public $timestamps = true;
+
 
     public function book()
     {
