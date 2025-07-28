@@ -51,4 +51,13 @@ class Loan extends Model
         return $this->hasOne(\App\Models\BookReturn::class);
     }
 
+    // App\Models\Loan.php
+
+    public function copy()
+    {
+        return $this->hasOne(BookCopy::class, 'loan_id');
+    }
+
+
+
 }
